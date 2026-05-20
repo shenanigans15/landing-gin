@@ -1,23 +1,6 @@
 import { Star } from 'lucide-react'
 import { Card, CardContent } from '../ui/card'
-
-const testimonials = [
-  {
-    name: 'Martín R.',
-    location: 'Jujuy',
-    text: 'Un gin distinto. Muy equilibrado y con un aroma increíble.',
-  },
-  {
-    name: 'Lucía G.',
-    location: 'Salta',
-    text: 'Se nota que es artesanal. Nada que ver con los gins comerciales.',
-  },
-  {
-    name: 'Carlos M.',
-    location: 'San Salvador',
-    text: 'Lo probé por recomendación y ahora siempre tengo una botella.',
-  },
-]
+import { testimonials } from '@/data/testimonials'
 
 export const Testimonials = () => {
   return (
