@@ -1,44 +1,59 @@
-import { Button } from '../ui/button'
+import { BrandButton } from '../ui/BrandButton'
+import { GlowBackground } from '../ui/GlowBackground'
+import { PageSection } from '../ui/PageSection'
+import { SectionHeader } from '../ui/SectionHeader'
+import { container, sectionLabel } from '@/lib/styles'
+import { cn } from '@/lib/utils'
 
 export const CTA = () => {
   return (
-    <section className="relative bg-black py-28 px-6 text-center overflow-hidden">
-      {/* Glow de fondo */}
-      <div className="absolute inset-0 -z-10 flex justify-center">
-        <div className="w-[500px] h-[500px] bg-amber-500/10 blur-3xl rounded-full" />
-      </div>
+    <PageSection
+      id="cta"
+      labelledBy="cta-heading"
+      className="relative isolate overflow-hidden bg-black !pb-24 !pt-20 sm:!pb-28 sm:!pt-24 md:!pb-36 md:!pt-28"
+    >
+      <GlowBackground intensity="strong" />
 
-      <div className="max-w-2xl mx-auto">
-        {/* Titulo */}
-        <h2 className="text-3xl md:text-5xl font-semibold text-white leading-tight">
-          Descubrí un gin distinto
-        </h2>
+      <div className={cn(container, 'relative z-10')}>
+        <div
+          className={cn(
+            'mx-auto max-w-2xl rounded-3xl border border-neutral-800/50',
+            'bg-neutral-950/40 px-6 py-12 text-center backdrop-blur-sm',
+            'sm:px-10 sm:py-14 md:px-14 md:py-16',
+            'shadow-[0_0_80px_-20px_rgba(245,158,11,0.08)]',
+          )}
+        >
+          <p className={sectionLabel}>Edición limitada</p>
 
-        {/* Texto */}
-        <p className="mt-6 text-neutral-400">
-          Producción limitada. Cada botella es unica. Sólo 7 botellas por lote.
-          No esperes a ques se agote.
-        </p>
+          <SectionHeader
+            title="Descubrí un gin distinto"
+            titleId="cta-heading"
+            className="mt-5 max-w-none [&_h2]:mt-4 [&_h2]:text-3xl sm:[&_h2]:text-4xl md:[&_h2]:text-[2.75rem]"
+          />
 
-        {/* Botones */}
-        <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
-          <Button className="bg-amber-600 hover:bg-amber-800 text-black px-8 py-6 text-lg">
-            Comprar ahora
-          </Button>
+          <p className="mx-auto mt-6 max-w-md text-base font-light leading-[1.75] text-neutral-400 md:text-lg">
+            Producción limitada. Cada botella es única. Sólo 7 botellas por lote.
+            No esperes a que se agote.
+          </p>
 
-          <Button
-            variant="outline"
-            className="border-neutral-700 text-white hover:bg-neutral-800 px-8 py-6 text-lg"
-          >
-            Ver productos
-          </Button>
+          <div className="mt-10 flex flex-col items-center gap-4 sm:mt-12 sm:flex-row sm:justify-center">
+            <BrandButton emphasized size="lg" className="w-full sm:w-auto">
+              Comprar ahora
+            </BrandButton>
+            <BrandButton
+              brandVariant="outline"
+              size="lg"
+              className="w-full px-8 py-5 sm:w-auto"
+            >
+              Ver productos
+            </BrandButton>
+          </div>
+
+          <p className="mt-8 text-[11px] uppercase tracking-[0.25em] text-neutral-600">
+            Envíos disponibles a todo el país
+          </p>
         </div>
-
-        {/* Nota sutil */}
-        <p className="mt-6 text-xs text-neutral-500">
-          Envíos disponibles a todo el país.
-        </p>
       </div>
-    </section>
+    </PageSection>
   )
 }

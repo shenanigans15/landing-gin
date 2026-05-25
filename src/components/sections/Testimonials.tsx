@@ -1,60 +1,84 @@
 import { Star } from 'lucide-react'
+
 import { Card, CardContent } from '../ui/card'
+import { PageSection } from '../ui/PageSection'
+import { SectionHeader } from '../ui/SectionHeader'
+
 import { testimonials } from '@/data/testimonials'
+
+import { cardHover, container, sectionGrid } from '@/lib/styles'
+import { cn } from '@/lib/utils'
+
+const StarRating = () => {
+  return (
+    <div className="mb-4 flex gap-1" role="img" aria-label="5 de 5 estrellas">
+      {Array.from({ length: 5 }, (_, i) => (
+        <Star
+          key={i}
+          className="h-3.5 w-3.5 fill-amber-500/90 text-amber-500/90"
+          aria-hidden="true"
+        />
+      ))}
+    </div>
+  )
+}
 
 export const Testimonials = () => {
   return (
-    <section
+    <PageSection
       id="testimonials"
-      className="bg-neutral-950 py-24 px-6 scroll-mt-60"
+      labelledBy="testimonials-heading"
+      className="bg-neutral-950/80"
     >
-      <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl text-white font-semibold">
-          Lo que dicen nuestros clientes
-        </h2>
+      <div className={container}>
+        <SectionHeader
+          label="Opiniones"
+          title="Lo que dicen nuestros clientes"
+          titleId="testimonials-heading"
+          lead="Opiniones reales de quienes ya probaron Brújula Vikinga."
+        />
 
-        <p className="mt-4 text-neutral-400 max-w-xl mx-auto">
-          {' '}
-          Opiniones reales de quienes ya probaron Brújula Vikinga.
-        </p>
+        <ul className={sectionGrid}>
+          {testimonials.map((t) => (
+            <li key={t.name}>
+              <Card
+                className={cn(
+                  'h-full rounded-2xl border-neutral-800/60 bg-neutral-900/40 ring-0 transition-[border-color,box-shadow,transform] duration-500 ease-luxury',
 
-        {/* Tarjetas */}
-        <div className="mt-16 grid md:grid-cols-3 gap-8">
-          {testimonials.map((t, i) => (
-            <Card
-              key={i}
-              className="bg-neutral-900 border-neutral-800 hover:border-amber-500/40 transition"
-            >
-              <CardContent className="p-6 text-left">
-                {/* Usuario */}
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="h-10 w-10 rounded-full bg-neutral-700 flex items-center justify-center text-sm text-white">
-                    {t.name[0]}
-                  </div>
+                  cardHover,
+                )}
+              >
+                <CardContent className="p-7 text-left sm:p-8">
+                  <figure className="mb-5 flex items-center gap-4">
+                    <div
+                      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-neutral-700/80 bg-neutral-800/80 text-sm font-medium text-neutral-200"
+                      aria-hidden="true"
+                    >
+                      {t.name[0]}
+                    </div>
 
-                  <div>
-                    <p className="text-white font-medium">{t.name}</p>
-                    <p className="text-sm text-neutral-500">{t.location}</p>
-                  </div>
-                </div>
+                    <figcaption>
+                      <p className="font-medium tracking-tight text-neutral-100">
+                        {t.name}
+                      </p>
 
-                {/* Estrellas */}
-                <div className="flex gap-1 mb-3">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="h-4 w-4 fill-amber-500 text-amber-500"
-                    />
-                  ))}
-                </div>
+                      <p className="mt-0.5 text-xs tracking-wide text-neutral-500">
+                        {t.location}
+                      </p>
+                    </figcaption>
+                  </figure>
 
-                {/* Texto */}
-                <p className="text-neutral-300 leading-relaxed">“{t.text}”</p>
-              </CardContent>
-            </Card>
+                  <StarRating />
+
+                  <blockquote className="text-sm font-light leading-[1.75] text-neutral-400 md:text-[15px]">
+                    <p>“{t.text}”</p>
+                  </blockquote>
+                </CardContent>
+              </Card>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
-    </section>
+    </PageSection>
   )
 }

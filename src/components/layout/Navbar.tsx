@@ -1,80 +1,144 @@
 import { useEffect, useState } from 'react'
-import { Button } from '../ui/button'
+import { Menu, X } from 'lucide-react'
+import { BrandButton } from '../ui/BrandButton'
+import { navLinks } from '@/data/navigation'
+import { focusRing, navLink } from '@/lib/styles'
+import { cn } from '@/lib/utils'
 
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10)
-    }
-
-    window.addEventListener('scroll', handleScroll)
+    const handleScroll = () => setScrolled(window.scrollY > 10)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [menuOpen])
+
+  useEffect(() => {
+    if (!menuOpen) return
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMenuOpen(false)
+    }
+    window.addEventListener('keydown', handleEscape)
+    return () => window.removeEventListener('keydown', handleEscape)
+  }, [menuOpen])
+
+  const closeMenu = () => setMenuOpen(false)
+
   return (
     <header
-      className={`fixed top-0 left-0 z-50 w-full transition-all duration-300 ${
+      className={cn(
+        'fixed top-0 left-0 z-50 w-full transition-[background-color,border-color,backdrop-filter] duration-500 ease-luxury',
         scrolled
-          ? 'bg-black/60 backdrop-blur border-b border-neutral-800'
-          : 'bg-black backdrop-blur-sm'
-      }`}
+          ? 'border-b border-neutral-800/50 bg-black/75 backdrop-blur-xl'
+          : 'bg-black/80 backdrop-blur-md',
+      )}
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
-        {/* Logo + Marca */}
-        <div className="flex items-center gap-4">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
+        <a
+          href="#hero"
+          className={cn(
+            'group flex min-w-0 items-center gap-3 rounded-lg sm:gap-4',
+            focusRing,
+          )}
+          aria-label="Brújula Vikinga — inicio"
+        >
           <img
             src="/logo_invicible.png"
-            className="h-20 w-20 object-contain brightness-200"
+            alt=""
+            width={64}
+            height={64}
+            decoding="async"
+            className="h-12 w-12 shrink-0 object-contain brightness-200 opacity-95 motion-safe:transition-[transform,opacity] motion-safe:duration-500 motion-safe:ease-luxury motion-safe:group-hover:scale-[1.03] motion-safe:group-hover:opacity-100 sm:h-14 sm:w-14"
           />
-
-          <div className="flex flex-col leading-none items-center">
-            <h1 className="font-viking text-xl tracking-wide text-white">
+          <div className="min-w-0 flex flex-col leading-none">
+            <span className="truncate font-viking text-base tracking-wide text-neutral-50 sm:text-lg">
               Brújula Vikinga
-            </h1>
-
-            <span className="text-[10px] uppercase tracking-[0.3em] text-neutral-400 mt-1">
+            </span>
+            <span className="mt-1 text-[9px] uppercase tracking-[0.32em] text-neutral-500 sm:text-[10px]">
               Handcrafted Gin
             </span>
           </div>
-        </div>
+        </a>
 
-        {/* Links */}
-        <nav className="hidden md:flex gap-10 text-sm font-medium tracking-wide">
-          <a
-            href="#hero"
-            className="relative text-neutral-400 hover:text-white transition
-              after:absolute after:left-1/2 after:-bottom-1 after:h-[2px]
-              after:w-0 after:bg-amber-700 after:transition-all
-              after:-translate-x-1/2 hover:after:w-1/2"
-          >
-            Inicio
-          </a>
-          <a
-            href="#features"
-            className="relative text-neutral-400 hover:text-white transition
-              after:absolute after:left-1/2 after:-bottom-1 after:h-[2px]
-              after:w-0 after:bg-amber-700 after:transition-all
-              after:-translate-x-1/2 hover:after:w-1/2"
-          >
-            Características
-          </a>
-          <a
-            href="#testimonials"
-            className="relative text-neutral-400 hover:text-white transition
-              after:absolute after:left-1/2 after:-bottom-1 after:h-[2px]
-              after:w-0 after:bg-amber-700 after:transition-all
-              after:-translate-x-1/2 hover:after:w-1/2"
-          >
-            Opiniones
-          </a>
+        <nav
+          className="hidden items-center gap-10 lg:flex"
+          aria-label="Principal"
+        >
+          {navLinks.map(({ href, label }) => (
+            <a key={href} href={href} className={navLink}>
+              {label}
+            </a>
+          ))}
         </nav>
-        {/* CTA */}
-        <Button className="bg-amber-500 hover:bg-amber-600 text-black px-6 py-2.5 text-sm font-medium rounded-md shadow-lg shadow-amber-500/20">
-          Comprar
-        </Button>
+
+        <div className="flex shrink-0 items-center gap-3">
+          <BrandButton
+            size="sm"
+            className="hidden px-6 py-2.5 text-sm md:inline-flex"
+          >
+            Comprar
+          </BrandButton>
+
+          <button
+            type="button"
+            className={cn(
+              'inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-800/80 text-neutral-400 transition-[border-color,background-color,color] duration-500 ease-luxury hover:border-neutral-600 hover:bg-neutral-900/80 hover:text-neutral-100 lg:hidden',
+              focusRing,
+            )}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-nav"
+            aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            {menuOpen ? (
+              <X className="h-5 w-5" strokeWidth={1.5} aria-hidden="true" />
+            ) : (
+              <Menu className="h-5 w-5" strokeWidth={1.5} aria-hidden="true" />
+            )}
+          </button>
+        </div>
       </div>
+
+      <nav
+        id="mobile-nav"
+        className={cn(
+          'overflow-hidden border-t border-neutral-800/50 bg-black/95 backdrop-blur-xl transition-[max-height,opacity] duration-500 ease-luxury lg:hidden',
+          menuOpen ? 'max-h-[min(24rem,calc(100dvh-4rem))] opacity-100' : 'max-h-0 opacity-0',
+        )}
+        aria-label="Menú móvil y tablet"
+        hidden={!menuOpen}
+      >
+        <ul className="flex flex-col gap-0.5 overflow-y-auto px-4 py-5 sm:px-6">
+          {navLinks.map(({ href, label }) => (
+            <li key={href}>
+              <a
+                href={href}
+                className={cn(
+                  'block rounded-lg px-4 py-3.5 text-sm tracking-wide text-neutral-400 transition-colors duration-500 ease-luxury hover:bg-neutral-900/60 hover:text-neutral-100',
+                  focusRing,
+                )}
+                onClick={closeMenu}
+              >
+                {label}
+              </a>
+            </li>
+          ))}
+          <li className="pt-4">
+            <BrandButton emphasized className="w-full" onClick={closeMenu}>
+              Comprar
+            </BrandButton>
+          </li>
+        </ul>
+      </nav>
     </header>
   )
 }
