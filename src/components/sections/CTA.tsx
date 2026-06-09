@@ -1,11 +1,16 @@
+import { useNavigate } from 'react-router'
+
+import { container, sectionLabel } from '@/lib/styles'
+import { cn } from '@/lib/utils'
+
 import { BrandButton } from '../ui/BrandButton'
 import { GlowBackground } from '../ui/GlowBackground'
 import { PageSection } from '../ui/PageSection'
 import { SectionHeader } from '../ui/SectionHeader'
-import { container, sectionLabel } from '@/lib/styles'
-import { cn } from '@/lib/utils'
 
 export const CTA = () => {
+  const navigate = useNavigate()
+
   return (
     <PageSection
       id="cta"
@@ -32,18 +37,16 @@ export const CTA = () => {
           />
 
           <p className="mx-auto mt-6 max-w-md text-base font-light leading-[1.75] text-neutral-400 md:text-lg">
-            Producción limitada. Cada botella es única. Sólo 7 botellas por lote.
-            No esperes a que se agote.
+            Producción limitada. Cada botella es única. Sólo 7 botellas por
+            lote. No esperes a que se agote.
           </p>
 
           <div className="mt-10 flex flex-col items-center gap-4 sm:mt-12 sm:flex-row sm:justify-center">
-            <BrandButton emphasized size="lg" className="w-full sm:w-auto">
-              Comprar ahora
-            </BrandButton>
             <BrandButton
-              brandVariant="outline"
+              emphasized
               size="lg"
-              className="w-full px-8 py-5 sm:w-auto"
+              className="w-full sm:w-auto"
+              onClick={() => navigate('/products')}
             >
               Ver productos
             </BrandButton>

@@ -1,9 +1,14 @@
+import { useNavigate } from 'react-router'
+
+import { cn } from '@/lib/utils'
+import { container, sectionLabel } from '@/lib/styles'
+
 import { BrandButton } from '../ui/BrandButton'
 import { GlowBackground } from '../ui/GlowBackground'
-import { container, sectionLabel } from '@/lib/styles'
-import { cn } from '@/lib/utils'
 
 export const Hero = () => {
+  const navigate = useNavigate()
+
   return (
     <section
       id="hero"
@@ -36,14 +41,12 @@ export const Hero = () => {
             carácter, pensado para quienes buscan algo distinto.
           </p>
 
-          <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center md:mt-12 md:items-start md:justify-start">
-            <BrandButton emphasized size="lg" className="w-full sm:w-auto">
-              Comprar
-            </BrandButton>
+          <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center md:mt-12 md:items-start md:justify-start lg:px-16">
             <BrandButton
-              brandVariant="outline"
+              emphasized
               size="lg"
-              className="w-full px-8 py-5 sm:w-auto"
+              className="w-full sm:w-auto"
+              onClick={() => navigate('/products')}
             >
               Ver productos
             </BrandButton>
