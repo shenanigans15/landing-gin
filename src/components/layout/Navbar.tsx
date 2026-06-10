@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router'
-import { Menu, X } from 'lucide-react'
+import { Menu, ShoppingCart, User, X } from 'lucide-react'
 
 import { navLinks } from '@/data/navigation'
 
@@ -68,20 +68,34 @@ export const Navbar = () => {
           </nav>
         )}
 
-        <div className="flex shrink-0 items-center gap-3">
+        <div className="flex shrink-0 items-center gap-1">
           <BrandButton
             size="sm"
-            className="hidden px-6 py-2.5 text-sm md:inline-flex"
-            onClick={() => navigate(isProductsPage ? '/' : '/products')}
+            className="hidden px-2 py-2 text-sm md:inline-flex"
           >
-            {isProductsPage ? 'Volver al inicio' : 'Ver productos'}
+            <User />
           </BrandButton>
+          <BrandButton
+            size="sm"
+            className="hidden px-2 py-2 text-sm md:inline-flex"
+          >
+            <ShoppingCart />
+          </BrandButton>
+          {!menuOpen && (
+            <BrandButton
+              size="sm"
+              className="hidden px-4 py-3 text-sm md:inline-flex"
+              onClick={() => navigate(isProductsPage ? '/' : '/products')}
+            >
+              {isProductsPage ? 'Volver al inicio' : 'Ver productos'}
+            </BrandButton>
+          )}
 
           {!isProductsPage && (
             <button
               type="button"
               className={cn(
-                'inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-800/80 text-neutral-400 transition-[border-color,background-color,color] duration-500 ease-luxury hover:border-neutral-600 hover:bg-neutral-900/80 hover:text-neutral-100 lg:hidden',
+                'inline-flex ml-3 h-10 w-10 items-center justify-center rounded-full border border-amber-500 text-amber-500 transition-[border-color,background-color,color] duration-500 ease-luxury hover:border-neutral-600 hover:bg-neutral-900/80 hover:text-neutral-100 lg:hidden',
                 focusRing,
               )}
               aria-expanded={menuOpen}

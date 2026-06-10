@@ -4,8 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Grid, List } from 'lucide-react'
 
 import { ProductCard } from './ProductCard'
-import type { Product } from '@/data/products'
-// import type { Product } from '../interfaces/product.interface'
+import type { Product } from '../interfaces/product.interface'
 
 interface Props {
   products: Product[]
@@ -70,7 +69,11 @@ export const ProductsGrid = ({ products }: Props) => {
                   id={product.id}
                   name={product.name}
                   price={product.price}
+                  description={product.description}
+                  slug={product.slug}
+                  stock={product.stock}
                   image={product.image}
+                  tags={product.tags}
                 />
               ))}
             </div>

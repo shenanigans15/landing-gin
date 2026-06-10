@@ -23,10 +23,10 @@ export const GinTitle = () => {
           className="h-12 w-12 shrink-0 object-contain brightness-200 opacity-95 motion-safe:transition-[transform,opacity] motion-safe:duration-500 motion-safe:ease-luxury motion-safe:group-hover:scale-[1.03] motion-safe:group-hover:opacity-100 sm:h-14 sm:w-14"
         />
         <div className="min-w-0 flex flex-col leading-none">
-          <span className="truncate font-viking text-base tracking-wide text-neutral-50 sm:text-lg">
+          <span className="px-2 truncate font-viking text-base tracking-wide text-neutral-50 sm:text-lg">
             Brújula Vikinga
           </span>
-          <span className="mt-1 text-[9px] uppercase tracking-[0.32em] text-neutral-500 sm:text-[10px]">
+          <span className="mt-1 text-[9px] uppercase tracking-[0.32em] text-amber-500/40 sm:text-[10px]">
             Handcrafted Gin
           </span>
         </div>

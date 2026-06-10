@@ -1,16 +1,17 @@
+import { useNavigate } from 'react-router'
+
+import type { Product } from '../interfaces/product.interface'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 
-interface ProductCardProps {
-  id: string
-  name: string
-  price: number
-  image: string
-}
+export const ProductCard = ({ name, price, image, slug }: Product) => {
+  const navigate = useNavigate()
 
-export const ProductCard = ({ name, price, image }: ProductCardProps) => {
   return (
-    <Card className="group border border-amber-500 shadow-none product-card-hover cursor-pointer">
+    <Card
+      className="group border border-amber-500 shadow-none product-card-hover cursor-pointer"
+      onClick={() => navigate(`/products/${slug}`)}
+    >
       <CardContent className="p-0">
         <div className="relative aspect-square overflow-hidden bg-muted rounded-lg">
           <img
