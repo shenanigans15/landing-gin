@@ -15,14 +15,14 @@ export const GinTitle = () => {
         to={'/'}
       >
         <img
-          src="/logo_invicible.png"
+          src="/logo_invisible.png"
           alt=""
           width={64}
           height={64}
           decoding="async"
-          className="h-12 w-12 shrink-0 object-contain brightness-200 opacity-95 motion-safe:transition-[transform,opacity] motion-safe:duration-500 motion-safe:ease-luxury motion-safe:group-hover:scale-[1.03] motion-safe:group-hover:opacity-100 sm:h-14 sm:w-14"
+          className="h-12 w-12 shrink-0 object-contain brightness-200 opacity-40 motion-safe:transition-[transform,opacity] motion-safe:duration-500 motion-safe:ease-luxury motion-safe:hover:scale-[1.03] motion-safe:hover:opacity-80 sm:h-14 sm:w-14"
         />
-        <div className="min-w-0 flex flex-col leading-none">
+        <div className="hover:scale-[1.05] transition-all duration-500 ease-luxury min-w-0 flex flex-col leading-none">
           <span className="px-2 truncate font-viking text-base tracking-wide text-neutral-50 sm:text-lg">
             Brújula Vikinga
           </span>

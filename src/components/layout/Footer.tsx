@@ -79,7 +79,7 @@ export const Footer = () => {
       </div>
 
       <div className="mx-auto mt-14 max-w-6xl border-t border-neutral-800/50 pt-8 text-center text-xs tracking-wide text-neutral-600 sm:mt-16">
-        © {new Date().getFullYear()} Brújula Vikinga. Todos los derechos
+        © {new Date().getFullYear()} Brújula Vikinga Gin. Todos los derechos
         reservados.
       </div>
     </footer>

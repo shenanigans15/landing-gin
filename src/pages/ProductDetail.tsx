@@ -1,9 +1,12 @@
 import { useParams } from 'react-router'
-import { Navbar } from '@/components/layout/Navbar'
-import { products } from '@/data/products'
 import { Truck } from 'lucide-react'
+
+import { Footer } from '@/components/layout/Footer'
+import { Navbar } from '@/components/layout/Navbar'
 import { BrandButton } from '../components/ui/BrandButton'
 import { CounterButton } from '../components/ui/counter-button'
+import { Card } from '@/components/ui/card'
+import { products } from '@/data/products'
 
 export const ProductDetail = () => {
   const { slug } = useParams()
@@ -66,38 +69,48 @@ export const ProductDetail = () => {
   return (
     <>
       <Navbar />
-      <main className="mt-20 max-w-6xl mx-auto px-6">
-        <div className="grid md:grid-cols-2 gap-12">
-          <div>
-            <img
-              src={product.image}
-              alt={product.name}
-              className="h-full w-full object-cover"
-            />
-            <div className="image-overlay" />
-          </div>
-          <div>
-            <h1 className="mt-20 text-4xl font-bold">{product.name}</h1>
-            <p className="mt-4 text-3xl font-semibold text-amber-500">
-              ${product.price}
-            </p>
-            <p className="mt-4 text-neutral-400">{product.description}</p>
-            <div className="mt-6 flex">
-              <h2 className="text-xl">Cantidad</h2>
-              <CounterButton className="ml-auto border-amber-500" />
+      <main className="mt-20 px-6 bg-neutral-950 place-items-center">
+        <div className="max-w-6xl grid md:grid-cols-2 gap-10">
+          <Card className="mt-10 bg-neutral-900 ring-amber-500/20">
+            <div>
+              <img
+                src={product.image}
+                alt={product.name}
+                className="h-full w-full object-cover"
+              />
+              <div className="image-overlay" />
             </div>
-            <div className="mt-4">
-              <BrandButton size="sm" className="w-full h-12 text-xl">
-                Agregar al carrito
-              </BrandButton>
+          </Card>
+          <Card className="mt-10 bg-neutral-900 ring-amber-500/20">
+            <div className="px-6">
+              <h1 className="mt-6 md:mt-20 text-4xl font-bold">
+                {product.name}
+              </h1>
+              <p className="mt-4 text-3xl font-semibold text-amber-500">
+                ${product.price}
+              </p>
+              <p className="mt-4 text-neutral-400">{product.description}</p>
+              <div className="mt-6 flex">
+                <h2 className="text-xl">Cantidad</h2>
+                <CounterButton
+                  className="ml-auto border-amber-500"
+                  max={product.stock}
+                />
+              </div>
+              <div className="mt-4">
+                <BrandButton size="sm" className="w-full h-12 text-xl">
+                  Agregar al carrito
+                </BrandButton>
+              </div>
+              <div className="inline-flex gap-2 mt-4">
+                <Truck className="text-neutral-400" />
+                <p className="text-neutral-400">Envíos a todo el país!</p>
+              </div>
             </div>
-            <div className="inline-flex gap-2 mt-4">
-              <Truck className="text-neutral-400" />
-              <p className="text-neutral-400">Envíos a todo el país!</p>
-            </div>
-          </div>
+          </Card>
         </div>
       </main>
+      <Footer />
     </>
   )
 }
